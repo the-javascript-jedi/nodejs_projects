@@ -1,0 +1,22 @@
+{
+  "name": "devcampler_api",
+  "version": "1.0.0",
+  "description": "Dev camper backend api",
+  "main": "server.js",
+  "scripts": {
+    "start": "SET NODE_ENV=production & node server",
+    "dev": "nodemon server"
+  },
+  "author": "NS",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "mongoose": "^5.10.9",
+    "morgan": "^1.10.0",
+    "node-geocoder": "^3.27.0",
+    "slugify": "^1.4.6"
+  }
+}
