@@ -1,8 +1,9 @@
 const express = require("express");
-const { searchGames } = require("./controllers/search-games");
-const { searchTableWithPagination } = require("./controllers/pagination-table");
-const { searchTableCount } = require("./controllers/pagination-table");
+// const { searchGames } = require("./controllers/search-games");
+// const { searchTableWithPagination } = require("./controllers/pagination-table");
+// const { searchTableCount } = require("./controllers/pagination-table");
 const app = express();
+const { faker } = require("@faker-js/faker");
 // SET Headers to overcome CROSS Origin requests
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -17,14 +18,21 @@ app.use((req, res, next) => {
   next();
 });
 
-//localhost:5000/api/games?&filter=halo
-app.route("/api/games").get(searchGames);
-// http://localhost:5000/api/searchTableWithPagination?&sortOrder=asc&pageNumber=1&pageSize=3
-app.route("/api/searchTableWithPagination").get(searchTableWithPagination);
-// get games data count
-// http://localhost:5000/api/searchTableCount
-app.route("/api/searchTableCount").get(searchTableCount);
+// //localhost:5000/api/games?&filter=halo
+// app.route("/api/games").get(searchGames);
+// // http://localhost:5000/api/searchTableWithPagination?&sortOrder=asc&pageNumber=1&pageSize=3
+// app.route("/api/searchTableWithPagination").get(searchTableWithPagination);
+// // get games data count
+// // http://localhost:5000/api/searchTableCount
+// app.route("/api/searchTableCount").get(searchTableCount);
 
+function generateAddress() {
+  console.log(faker.address.streetAddress());
+  console.log(faker.address.city());
+  console.log(faker.address.state());
+}
+
+generateAddress();
 app.listen(5000, () => {
   console.log("running on port 5000");
 });
