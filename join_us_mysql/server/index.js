@@ -1,7 +1,5 @@
 const express = require("express");
-// const { searchGames } = require("./controllers/search-games");
-// const { searchTableWithPagination } = require("./controllers/pagination-table");
-// const { searchTableCount } = require("./controllers/pagination-table");
+
 const app = express();
 const mysql2 = require("mysql2");
 const { faker } = require("@faker-js/faker");
@@ -20,20 +18,24 @@ connection.connect((err) => {
 });
 
 // my sql commands
-var q = "SELECT CURDATE()";
-// command 1
-connection.query("SELECT 1 + 1 AS solution", function (error, results, fields) {
-  if (error) throw error;
-  console.log("The solution is: ", results[0].solution);
+var data = [];
+for (var i = 0; i < 500; i++) {
+  data.push([faker.internet.email(), faker.date.past()]);
+}
+
+var q = "INSERT INTO users (email, created_at) VALUES ?";
+
+connection.query(q, [data], function (err, result) {
+  console.log(err);
+  console.log(result);
 });
-// command 2
-var q = "SELECT CURTIME() as time, CURDATE() as date, NOW() as now";
+
+// connection.end();
+// mqsql-2-To count the number of users in the database:
+var q = "SELECT COUNT(*) AS total FROM users ";
 connection.query(q, function (error, results, fields) {
   if (error) throw error;
-  // we can access the aliases created using as using dot notation in results
-  console.log(results[0].time);
-  console.log(results[0].date);
-  console.log(results[0].now);
+  console.log("results[0].total", results[0].total);
 });
 // close connection
 connection.end();
@@ -52,21 +54,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// //localhost:5000/api/games?&filter=halo
-// app.route("/api/games").get(searchGames);
-// // http://localhost:5000/api/searchTableWithPagination?&sortOrder=asc&pageNumber=1&pageSize=3
-// app.route("/api/searchTableWithPagination").get(searchTableWithPagination);
-// // get games data count
-// // http://localhost:5000/api/searchTableCount
-// app.route("/api/searchTableCount").get(searchTableCount);
-
-function generateAddress() {
-  console.log(faker.address.streetAddress());
-  console.log(faker.address.city());
-  console.log(faker.address.state());
-}
-
-generateAddress();
 app.listen(5000, () => {
   console.log("running on port 5000");
 });
