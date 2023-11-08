@@ -14,3 +14,20 @@ app.get("/", function (req, res) {
 app.listen(PORT, function () {
   console.log("Server running on localhost:" + PORT);
 });
+////////////////////////////////////////////////////////
+//working
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const app = express();
+
+// mongoose
+//   .connect("mongodb://0.0.0.0:27017/eventsdb")
+//   .then(() => {
+//     console.log("Successfully Connected!!!");
+//   })
+//   .catch((err) => {
+//     console.log("err", err);
+//   });
+// app.listen(5000, () => {
+//   console.log("on port 5000");
+// });
