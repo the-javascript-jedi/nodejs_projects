@@ -15,7 +15,7 @@ const routes: Routes = [
     path:'events',
     component:EventsComponent
   },{
-     path:'events',
+     path:'special',
     component:SpecialEventsComponent
   },{
      path:'login',
