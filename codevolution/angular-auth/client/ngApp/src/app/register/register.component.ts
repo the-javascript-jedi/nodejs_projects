@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthService} from 'src/app/services/auth.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-register',
@@ -7,7 +8,7 @@ import {AuthService} from 'src/app/services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  constructor(private _AuthService:AuthService){}
+  constructor(private _AuthService:AuthService,private _router: Router){}
   registerUserData={
     email:"",
     password:""
@@ -16,7 +17,10 @@ export class RegisterComponent {
   registerUser(){
     console.log("registerUserData",this.registerUserData);
     this._AuthService.registerUser(this.registerUserData).subscribe({
-      next:(res)=>{console.log("res",res)},
+      next:(res)=>{
+        localStorage.setItem('token',res.token);
+        this._router.navigate(['/special']);
+      },
       error:(error)=>{console.log("error",error)}
     })
   }
