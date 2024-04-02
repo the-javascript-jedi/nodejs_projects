@@ -1,3 +1,4 @@
+// to run -- node index.js
 const { parse } = require("csv-parse");
 const fs = require("fs");
 
