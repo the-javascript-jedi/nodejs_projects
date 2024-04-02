@@ -19,18 +19,28 @@ const friends = [
     name: "Albert Einstein",
   },
 ];
-//http://localhost:3000/friends
+//GET - Request http://localhost:3000/friends
+// POST request to friends - paste this below code in console
+/*
+  paste this code in console to make a POST request with payload
+fetch("http://localhost:3000/friends",{
+    method:"POST",
+    body: JSON.stringify({id:5,name:"Johnny"})
+})
+.then((response)=>response.json())
+.then((friend)=>console.log("friend",friend))
+*/
 http: server.on("request", (req, res) => {
   console.log("req.url", req.url);
   const items = req.url.split("/");
-  // /friends/2 => ['', 'friends', '2']
-  // /friends/
+
   if (req.method === "POST" && items[1] === "friends") {
     req.on("data", (data) => {
       const friend = data.toString();
       console.log("Request:", friend);
       friends.push(JSON.parse(friend));
     });
+    //  we pass in some JSON data in the readable stream and then pipe it into the readable stream, which is the response to send back that same JSON back to the browser.
     req.pipe(res);
   } else if (req.method === "GET" && items[1] === "friends") {
     res.statusCode = 200;
