@@ -1,7 +1,7 @@
 var HALO_GAMES = [
   {
     id: 0,
-    description: "Halo: Combat Evolved new",
+    description: "Halo: Combat Evolved",
     category: "shooter",
     longDescription: "Halo: Combat Evolved games are the best",
   },
