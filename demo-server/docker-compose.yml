@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: my-node-app-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000" # Map host port to container port
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: nodemon index.js
