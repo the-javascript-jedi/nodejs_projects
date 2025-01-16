@@ -5,6 +5,7 @@ export const resolvers = {
         id: "test-id",
         title: "The Title",
         description: "The description",
+        test: "test Data",
       };
     },
   },
