@@ -1,10 +1,10 @@
 type Query {
-  job: Job
+  jobs: [Job]
 }
 
 type Job {
-  id: ID
-  title: String
+  id: ID! # ! means non nullable - so we need to specify a data in the resolver
+  title: String!
   description: String
-  test: String
+  testBatman: String
 }
