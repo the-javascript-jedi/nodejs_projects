@@ -1,9 +1,14 @@
 type Query {
   jobs: [Job]
 }
-
+"""
+Represents a job ad posted to our board
+"""
 type Job {
   id: ID! # ! means non nullable - so we need to specify a data in the resolver
+  """
+  The __date__ when the job was published, in ISO-8601 format '2022-12-31'
+  """
   date: String!
   title: String!
   description: String
