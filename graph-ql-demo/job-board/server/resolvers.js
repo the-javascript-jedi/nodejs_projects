@@ -1,20 +1,18 @@
+import { getJobs } from "./db/jobs.js";
+
 export const resolvers = {
   Query: {
-    jobs: () => {
-      return [
-        {
-          id: "test-id-1",
-          title: "The Title 1",
-          description: "The description 1",
-          testBatman: "test Data 1",
-        },
-        {
-          id: "test-id-2",
-          title: "The Title 2",
-          description: "The description 2",
-          testBatman: "test Data 2",
-        },
-      ];
+    jobs: async () => {
+      const jobs = await getJobs();
+      console.log("jobs", jobs);
+      return jobs;
+    },
+  },
+
+  Job: {
+    date: (job) => {
+      console.log("job", job);
+      return job.createdAt.slice(0, "yyyy-mm-dd".length);
     },
   },
 };
