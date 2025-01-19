@@ -1,5 +1,6 @@
 import { getCompany } from "./db/companies.js";
 import { getJob, getJobs } from "./db/jobs.js";
+// import { getCompany } from "./db/companies.js";
 
 export const resolvers = {
   Query: {
@@ -12,11 +13,16 @@ export const resolvers = {
       console.log("jobs", jobs);
       return jobs;
     },
+    company: (_root, args) => {
+      console.log("[Query.company] args", args);
+      const companies = getCompany(args["id"]);
+      return companies;
+    },
   },
 
   Job: {
     company: (job) => {
-      // getCompany will return the id amd description of each company
+      // getCompany will return the id and description of each company
       // return {
       //   id: "test-company-id",
       //   description: "test-desc-id",
