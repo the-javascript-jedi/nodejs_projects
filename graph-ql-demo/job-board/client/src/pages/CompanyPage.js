@@ -20,8 +20,22 @@ function CompanyPage() {
     <div>
       <h1 className="title">{company.name}</h1>
       <div className="box">{company.description}</div>
+      <div>
+        <h2>Company Jobs</h2>
+        <div>
+          {company.jobs.length > 0 ? (
+            company.jobs.map((job) => (
+              <div>
+                <div>Date: {job.date}</div>
+                <div>Description: {job.description}</div>
+              </div>
+            ))
+          ) : (
+            <div>No Jobs</div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
-
 export default CompanyPage;
