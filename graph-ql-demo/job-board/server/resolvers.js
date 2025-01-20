@@ -1,9 +1,15 @@
 import { getCompany } from "./db/companies.js";
 import { getJob, getJobs, getJobsByCompany } from "./db/jobs.js";
+import { GraphQLError } from "graphql";
 
 export const resolvers = {
   Query: {
-    job: (_root, args) => {
+    job: async (_root, args) => {
+      const job = await getJob(args["id"]);
+      console.log("job", job);
+      if (!job) {
+        throw notFoundError("No Job found with id " + args["id"]);
+      }
       console.log("[Query.job] args", args);
       return getJob(args.id);
     },
@@ -12,9 +18,13 @@ export const resolvers = {
       console.log("jobs", jobs);
       return jobs;
     },
-    company: (_root, args) => {
+    company: async (_root, args) => {
       console.log("[Query.company] args", args);
-      const companies = getCompany(args["id"]);
+      const companies = await getCompany(args["id"]);
+      console.log("companies", companies);
+      if (!companies) {
+        throw notFoundError("No Company found with id" + id);
+      }
       return companies;
     },
   },
@@ -36,3 +46,10 @@ export const resolvers = {
     },
   },
 };
+
+function notFoundError(message) {
+  return new GraphQLError(message, {
+    // custom error code
+    extensions: { code: "NOT_FOUND" },
+  });
+}
