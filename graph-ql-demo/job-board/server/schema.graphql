@@ -23,3 +23,9 @@ type Job {
   company: Company!
   description: String
 }
+
+# POST requests to modify data are called  mutations
+# return the created job
+type Mutation {
+  createJob(title: String!, description: String): Job
+}
