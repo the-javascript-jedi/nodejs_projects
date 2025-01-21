@@ -10,4 +10,6 @@ npm install
 //client
 npm i graphql-request graphql
 
-//master changes - rebase check
+<!-- db reset -->
+
+node scripts/create-db.js

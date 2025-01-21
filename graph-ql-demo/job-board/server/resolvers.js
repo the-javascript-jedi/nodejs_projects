@@ -29,7 +29,7 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createJob: (_root, { title, description }) => {
+    createJob: (_root, { input: { title, description } }) => {
       const companyId = "FjcJCHJALA4i"; // TODO set based on user
       // import the node insertion function
       return createJob({ companyId, title, description });
