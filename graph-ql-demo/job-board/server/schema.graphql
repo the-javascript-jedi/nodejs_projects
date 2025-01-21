@@ -27,5 +27,10 @@ type Job {
 # POST requests to modify data are called  mutations
 # return the created job
 type Mutation {
-  createJob(title: String!, description: String): Job
+  createJob(input: CreateJobInput!): Job
+}
+
+input CreateJobInput {
+  title: String!
+  description: String
 }
