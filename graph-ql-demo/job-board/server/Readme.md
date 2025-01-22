@@ -9,3 +9,7 @@ npm install
 
 //client
 npm i graphql-request graphql
+
+<!-- db reset -->
+
+node scripts/create-db.js

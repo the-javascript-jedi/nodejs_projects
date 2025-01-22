@@ -1,4 +1,5 @@
 type Query {
+  company(id: ID!): Company
   job(id: ID!): Job
   jobs: [Job]
 }
@@ -7,6 +8,7 @@ type Company {
   id: ID!
   name: String!
   description: String
+  jobs: [Job!]!
 }
 """
 Represents a job ad posted to our board
@@ -19,5 +21,23 @@ type Job {
   date: String!
   title: String!
   company: Company!
+  description: String
+}
+
+# POST requests to modify data are called  mutations
+# return the created job
+type Mutation {
+  createJob(input: CreateJobInput!): Job
+  deleteJob(id: ID!): Job
+  updateJob(input: UpdateJobInput!): Job
+}
+
+input CreateJobInput {
+  title: String!
+  description: String
+}
+input UpdateJobInput {
+  id: ID!
+  title: String!
   description: String
 }
