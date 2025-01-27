@@ -47,12 +47,34 @@ export const resolvers = {
         description,
       });
     },
-    deleteJob: (_root, { id }) => {
-      return deleteJob(id);
+    deleteJob: async (_root, { id }, { user }) => {
+      if (!user) {
+        throw unauthorizedError("Missing authentication");
+      }
+      const job = await deleteJob(id, user.companyId);
+      if (!job) {
+        throw notFoundError("No Job found with id" + id);
+      }
+      return job;
     },
-    updateJob: (_root, { input: { id, title, description } }) => {
+    updateJob: async (
+      _root,
+      { input: { id, title, description } },
+      { user }
+    ) => {
       console.log(" id, title, description ", id, title, description);
-      return updateJob({ id, title, description });
+      if (!user) {
+        throw unauthorizedError("Missing authentication");
+      }
+      const job = await updateJob({
+        id,
+        companyId: user.companyId,
+        title,
+        description,
+      });
+      if (!job) {
+        throw notFoundError("No Job found with id" + id);
+      }
     },
   },
   Company: {
