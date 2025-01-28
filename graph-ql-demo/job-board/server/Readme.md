@@ -13,3 +13,5 @@ npm i graphql-request graphql
 <!-- db reset -->
 
 node scripts/create-db.js
+
+npm i @apollo/client
