@@ -26,10 +26,17 @@ export async function createJobQuery({ title, description }) {
       }
     }
   `;
+  // using graphql client
   const { job } = await client.request(mutation, {
     input: { title, description },
   });
   return job;
+  // using apollo client
+  // const { data } = await apolloClient.query({
+  //   query,
+  //   variables: { id },
+  // });
+  // return data.company;
 }
 
 export async function getJob(id) {
@@ -47,8 +54,15 @@ export async function getJob(id) {
       }
     }
   `;
-  const { job } = await client.request(query, { id });
-  return job;
+  // using graphql client
+  // const { job } = await client.request(query, { id });
+  // return job;
+  // using apollo client
+  const { data } = await apolloClient.query({
+    query,
+    variables: { id },
+  });
+  return data.job;
 }
 
 export async function getJobs() {
@@ -65,9 +79,12 @@ export async function getJobs() {
       }
     }
   `;
-
-  const { jobs } = await client.request(query);
-  return jobs;
+  // using graphql client
+  // const { jobs } = await client.request(query);
+  // return jobs;
+  // using apolloClient
+  const result = await apolloClient.query({ query });
+  return result.data.jobs;
 }
 
 export async function getCompanies(id) {
