@@ -36,17 +36,45 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createJob: (_root, { input: { title, description } }) => {
-      const companyId = "FjcJCHJALA4i"; // TODO set based on user
-      // import the node insertion function
-      return createJob({ companyId, title, description });
+    createJob: (_root, { input: { title, description } }, context) => {
+      console.log("[createJob] context:", context);
+      if (!context.user) {
+        throw unauthorizedError("Missing authentication");
+      }
+      return createJob({
+        companyId: context.user.companyId,
+        title,
+        description,
+      });
     },
-    deleteJob: (_root, { id }) => {
-      return deleteJob(id);
+    deleteJob: async (_root, { id }, { user }) => {
+      if (!user) {
+        throw unauthorizedError("Missing authentication");
+      }
+      const job = await deleteJob(id, user.companyId);
+      if (!job) {
+        throw notFoundError("No Job found with id" + id);
+      }
+      return job;
     },
-    updateJob: (_root, { input: { id, title, description } }) => {
+    updateJob: async (
+      _root,
+      { input: { id, title, description } },
+      { user }
+    ) => {
       console.log(" id, title, description ", id, title, description);
-      return updateJob({ id, title, description });
+      if (!user) {
+        throw unauthorizedError("Missing authentication");
+      }
+      const job = await updateJob({
+        id,
+        companyId: user.companyId,
+        title,
+        description,
+      });
+      if (!job) {
+        throw notFoundError("No Job found with id" + id);
+      }
     },
   },
   Company: {
@@ -72,5 +100,13 @@ function notFoundError(message) {
   return new GraphQLError(message, {
     // custom error code
     extensions: { code: "NOT_FOUND" },
+  });
+}
+
+function unauthorizedError(message) {
+  return new GraphQLError(message, {
+    extensions: {
+      code: "UNAUTHORIZED",
+    },
   });
 }
