@@ -168,3 +168,4 @@ export async function getCompanies(id) {
   const { company } = await apolloClient.request(query, { id });
   return company;
 }
+
