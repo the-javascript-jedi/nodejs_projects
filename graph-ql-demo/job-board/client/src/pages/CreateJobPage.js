@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { createJobQuery } from "../lib/graphql/queries";
+import { useNavigate } from "react-router";
 
 function CreateJobPage() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -10,6 +12,7 @@ function CreateJobPage() {
 
     const job = await createJobQuery({ title, description });
     console.log("job created:", job);
+    navigate(`/jobs/${job.id}`);
   };
 
   return (
