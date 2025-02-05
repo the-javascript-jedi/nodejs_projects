@@ -20,8 +20,8 @@ export const resolvers = {
       console.log("[Query.job] args", args);
       return getJob(args.id);
     },
-    jobs: async () => {
-      const jobs = await getJobs();
+    jobs: async (_root, { limit }) => {
+      const jobs = await getJobs(limit);
       console.log("jobs", jobs);
       return jobs;
     },
