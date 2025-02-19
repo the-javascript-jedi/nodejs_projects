@@ -32,5 +32,4 @@ function JobPage() {
     </div>
   );
 }
-
 export default JobPage;

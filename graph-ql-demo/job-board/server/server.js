@@ -5,6 +5,7 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware as apolloMiddleware } from "@apollo/server/express4";
 import { readFile } from "node:fs/promises";
 import { resolvers } from "./resolvers.js";
+import { getUser } from "./db/users.js";
 
 const PORT = 9000;
 
@@ -15,6 +16,17 @@ app.post("/login", handleLogin);
 
 const typeDefs = await readFile("./schema.graphql", "utf8");
 
+async function getContext({ req }) {
+  // console.log("[getContext] req", req);
+  // console.log("[getContext] req.auth", req.auth);
+  if (req.auth) {
+    const user = await getUser(req.auth.sub);
+    return { user };
+  }
+  // if not auth return empty object
+  return {};
+}
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
@@ -23,7 +35,7 @@ const apolloServer = new ApolloServer({
 await apolloServer.start();
 // apply middleware to a path - And with this, Express will send all requests for
 // the "/graphql" path to the "apolloMiddleware",
-app.use("/graphql", apolloMiddleware(apolloServer));
+app.use("/graphql", apolloMiddleware(apolloServer, { context: getContext }));
 
 app.listen({ port: PORT }, () => {
   console.log(`Server running on port ${PORT}`);

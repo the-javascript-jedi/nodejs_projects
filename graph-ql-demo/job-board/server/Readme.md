@@ -10,4 +10,12 @@ npm install
 //client
 npm i graphql-request graphql
 
+<<<<<<< HEAD
 //master changes - rebase check
+=======
+<!-- db reset -->
+
+node scripts/create-db.js
+
+npm i @apollo/client
+>>>>>>> 0147c14adcedda0274849eba478257c4c9a9f6df
