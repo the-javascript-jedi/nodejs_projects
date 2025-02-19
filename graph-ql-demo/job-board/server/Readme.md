@@ -9,3 +9,5 @@ npm install
 
 //client
 npm i graphql-request graphql
+
+This file is changed in readme
