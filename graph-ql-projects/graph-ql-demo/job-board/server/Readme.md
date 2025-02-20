@@ -10,8 +10,6 @@ npm install
 //client
 npm i graphql-request graphql
 
-//master changes - rebase check
-
 <!-- db reset -->
 
 node scripts/create-db.js
@@ -21,3 +19,4 @@ npm i @apollo/client
 <!-- populate the db with 50 jobs using the seed -->
 
 node scripts/insert-50-jobs.js
+npm i @apollo/client
