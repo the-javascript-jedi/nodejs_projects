@@ -124,10 +124,10 @@ export async function getJob(id) {
   return data.job;
 }
 
-export async function getJobs() {
+export async function getJobs(limit, offset) {
   const query = gql`
-    query Jobs {
-      jobs {
+    query Jobs($limit: Int, $offset: Int) {
+      jobs(limit: $limit, offset: $offset) {
         id
         date
         title
@@ -144,6 +144,7 @@ export async function getJobs() {
   // using apolloClient
   const result = await apolloClient.query({
     query,
+    variables: { limit, offset }, // Pass variables here
     fetchPolicy: "network-only",
   });
   return result.data.jobs;
@@ -168,4 +169,3 @@ export async function getCompanies(id) {
   const { company } = await apolloClient.request(query, { id });
   return company;
 }
-

@@ -15,3 +15,8 @@ npm i graphql-request graphql
 node scripts/create-db.js
 
 npm i @apollo/client
+
+<!-- populate the db with 50 jobs using the seed -->
+
+node scripts/insert-50-jobs.js
+npm i @apollo/client
