@@ -1,7 +1,11 @@
 const express = require("express");
 const { searchGames } = require("./controllers/search-games");
 const { searchTableWithPagination } = require("./controllers/pagination-table");
-const { searchTableCount } = require("./controllers/pagination-table");
+const {
+  searchTableCount,
+  testApiData,
+  gamePlatform,
+} = require("./controllers/pagination-table");
 const app = express();
 // SET Headers to overcome CROSS Origin requests
 app.use((req, res, next) => {
@@ -24,6 +28,10 @@ app.route("/api/searchTableWithPagination").get(searchTableWithPagination);
 // get games data count
 // http://localhost:5000/api/searchTableCount
 app.route("/api/searchTableCount").get(searchTableCount);
+//http://localhost:5000/api/testApiData
+app.route("/api/testApiData").get(testApiData);
+//http://localhost:5000/api/gamePlatform
+app.route("/api/gamePlatform").get(gamePlatform);
 
 app.listen(5000, () => {
   console.log("running on port 5000");

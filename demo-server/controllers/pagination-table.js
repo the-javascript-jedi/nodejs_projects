@@ -41,3 +41,11 @@ exports.searchTableCount = function (req, res) {
     res.status(200).json({ gamesPageCount: haloGamesDataForTable.length });
   }, 1000);
 };
+
+exports.testApiData = function (req, res) {
+  res.status(200).json({ message: "Test API is working!" });
+};
+
+exports.gamePlatform = function (req, res) {
+  res.status(200).json({ platform: "xbox" });
+};
