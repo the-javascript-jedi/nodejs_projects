@@ -1,25 +1,30 @@
 const DB_DATA = require("../data/db-halo-games");
+
 exports.searchGames = function (req, res) {
-  const queryParams = req.query;
-  const filter = queryParams.filter || "";
+  const filter = (req.query.filter || "").trim().toLowerCase();
 
   let games = DB_DATA.HALO_GAMES;
 
   if (filter) {
-    // console.log("lessons", lessons);
     games = games.filter((gameVal) => {
-      return (
-        gameVal.description.trim().toLowerCase().search(filter.toLowerCase()) >=
-        0
-      );
+      const text = (
+        gameVal.description +
+        " " +
+        gameVal.category +
+        " " +
+        gameVal.longDescription
+      ).toLowerCase();
+
+      return text.includes(filter);
     });
   } else {
     games = games.slice(0, 10);
   }
-  console.log("games", games);
-  console.log("filter", filter);
+
+  console.log("FILTER:", filter);
+  console.log("RESULT COUNT:", games.length);
+
   setTimeout(() => {
-    // res.status(200).json({ payload: lessonsPage });
     res.status(200).json({ gamesData: games });
   }, 1000);
 };
